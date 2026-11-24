@@ -1,7 +1,11 @@
 import Link from "next/link";
 import { LockSimple, ArrowDown } from "@phosphor-icons/react/dist/ssr";
 import { book, toc } from "@/content/book";
+import { SectionMark } from "./section-mark";
 import { Floor, Reveal } from "./motion";
+
+const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
+const toRoman = (n: number) => ROMAN[n] ?? String(n);
 
 // Table of contents drawn as a building elevation: chapter one is the ground floor you can walk into.
 export function Elevation() {
@@ -18,7 +22,8 @@ export function Elevation() {
       <div className="mx-auto grid max-w-[1320px] gap-14 px-4 py-20 md:grid-cols-12 md:px-8 md:py-28">
         <div className="md:col-span-4">
           <Reveal>
-            <h2 className="text-4xl font-semibold leading-[1.02] tracking-[-0.025em] md:text-5xl">What is inside</h2>
+            <SectionMark n="I">The contents</SectionMark>
+            <h2 className="display mt-5 text-5xl leading-[1.04] md:text-6xl">What is inside</h2>
             <p className="mt-5 max-w-[40ch] leading-relaxed text-ink-2">
               Nine chapters, each one a part of the house. Start at the ground floor, which is free to read on this page.
             </p>
@@ -43,12 +48,12 @@ export function Elevation() {
                 <Floor key={c.n} index={i} total={floors.length}>
                   <div
                     className={`group grid grid-cols-[3rem_1fr_auto] items-center gap-4 border-t border-ink px-4 py-4 md:grid-cols-[4rem_1fr_auto] md:px-6 ${
-                      ground ? "bg-cream py-6" : "transition-colors hover:bg-sheet"
+                      ground ? "bg-cream py-6 shadow-[inset_3px_0_0_var(--gold)]" : "transition-colors hover:bg-sheet"
                     }`}
                   >
-                    <span className="annot">{String(c.n).padStart(2, "0")}</span>
+                    <span className="font-display text-2xl font-semibold text-gold">{toRoman(c.n)}</span>
                     <div>
-                      <p className={`font-semibold tracking-[-0.01em] ${ground ? "text-lg" : ""}`}>{c.title}</p>
+                      <p className={`font-display font-semibold text-accent ${ground ? "text-2xl" : "text-xl"}`}>{c.title}</p>
                       <p className="mt-0.5 text-sm text-ink-2">{c.line}</p>
                     </div>
                     {ground ? (

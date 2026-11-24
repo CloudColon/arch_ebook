@@ -8,7 +8,7 @@ export function LegalPage({ title, intro, sections }: { title: string; intro: st
       <div className="grid gap-12 md:grid-cols-12">
         <aside className="md:col-span-4 lg:col-span-3">
           <div className="md:sticky md:top-24">
-            <h1 className="text-4xl font-semibold leading-[1.05] tracking-[-0.025em]">{title}</h1>
+            <h1 className="display text-5xl leading-[1.05]">{title}</h1>
             <p className="annot mt-3">Last updated {business.policiesUpdated}</p>
             <ol className="mt-8 hidden space-y-2 text-sm text-ink-2 md:block">
               {sections.map((s, i) => (

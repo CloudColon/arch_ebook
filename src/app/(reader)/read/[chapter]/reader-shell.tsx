@@ -188,7 +188,7 @@ export function ReaderShell({
 
       <article className="mx-auto max-w-[1100px] px-5 pb-24 pt-14 md:px-10 md:pt-20">
         <p className="annot">Chapter {chapterN}</p>
-        <h1 className="mb-12 mt-3 max-w-[18ch] text-4xl font-semibold leading-[1.05] tracking-[-0.025em] md:text-5xl">{chapterTitle}</h1>
+        <h1 className="mb-12 mt-3 max-w-[18ch] display text-5xl leading-[1.05] md:text-5xl">{chapterTitle}</h1>
         {children}
 
         <nav className="mt-20 grid gap-4 border-t border-ink pt-8 sm:grid-cols-2" aria-label="Chapters">

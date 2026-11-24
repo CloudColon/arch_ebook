@@ -10,8 +10,8 @@ import { BookCover } from "./book-cover";
 import { useCart } from "./cart";
 import { DrawLine } from "./motion";
 
-// The hero book. It tilts toward the pointer, and a click swings the cover open on its spine
-// to the first page of chapter one.
+// The hero book, standing in a palace arch drawn in gold. It tilts toward the pointer, and a click swings
+// the cover open on its spine to the first page of chapter one.
 
 // The first page of chapter one, revealed under the cover.
 function FirstPage({ onClose }: { onClose: () => void }) {
@@ -19,10 +19,10 @@ function FirstPage({ onClose }: { onClose: () => void }) {
   const opening = chapterOne.blocks.find((b) => b.type === "p");
   const text = opening && "text" in opening ? opening.text.split(". ").slice(0, 3).join(". ") + "." : "";
   return (
-    <div className="@container absolute inset-0 bg-[#fbfaf6] text-[#2a2c30] shadow-[inset_10px_0_18px_-12px_rgb(42_44_48/0.35)]">
+    <div className="@container absolute inset-0 bg-[#fdfcf8] text-[#1d2131] shadow-[inset_10px_0_18px_-12px_rgb(31_42_92/0.35)]">
     <div className="flex h-full flex-col p-[8cqw]">
       <div className="flex items-start justify-between">
-        <p className="font-mono text-[3cqw] uppercase tracking-[0.06em] text-[#6c7077]">Chapter 1</p>
+        <p className="font-mono text-[3cqw] uppercase tracking-[0.12em] text-[#8a7340]">Chapter I</p>
         <button
           type="button"
           onClick={onClose}
@@ -32,22 +32,22 @@ function FirstPage({ onClose }: { onClose: () => void }) {
           <X className="size-[4.5cqw]" />
         </button>
       </div>
-      <p className="mt-[3cqw] text-[8.2cqw] font-semibold leading-[1.02] tracking-[-0.02em]">{chapterOne.title}</p>
-      <p className="mt-[5cqw] font-serif text-[4.3cqw] leading-[1.6] first-letter:float-left first-letter:mr-[1.2cqw] first-letter:font-sans first-letter:text-[12cqw] first-letter:font-semibold first-letter:leading-[0.82]">
+      <p className="mt-[3cqw] font-display text-[10cqw] font-semibold leading-[1] text-[#1f2a5c]">{chapterOne.title}</p>
+      <p className="mt-[5cqw] font-serif text-[4.3cqw] leading-[1.6] first-letter:float-left first-letter:mr-[1.2cqw] first-letter:font-display first-letter:text-[14cqw] first-letter:font-semibold first-letter:leading-[0.8] first-letter:text-[#1f2a5c]">
         {text}
       </p>
       <div className="mt-auto grid gap-[2.4cqw]">
         <Link
           href="/#sample"
           onClick={onClose}
-          className="flex h-[11cqw] items-center justify-center bg-[#3b3f45] text-[4cqw] font-semibold text-[#f6f5f1] hover:bg-[#2a2c30]"
+          className="flex h-[11cqw] items-center justify-center bg-[#1f2a5c] text-[4cqw] font-semibold text-[#f7f5ef] hover:bg-[#151d44]"
         >
           Read chapter one
         </Link>
         <button
           type="button"
           onClick={() => add()}
-          className="flex h-[11cqw] items-center justify-center border border-[#2a2c30] text-[4cqw] font-semibold hover:bg-[#2a2c30] hover:text-[#f6f5f1]"
+          className="flex h-[11cqw] items-center justify-center border border-[#1f2a5c] text-[4cqw] font-semibold text-[#1f2a5c] hover:bg-[#1f2a5c] hover:text-[#f7f5ef]"
         >
           Buy the ebook ₹{book.pricePaise / 100}
         </button>
@@ -58,24 +58,44 @@ function FirstPage({ onClose }: { onClose: () => void }) {
   );
 }
 
-// Inside of the front cover: endpaper with the site grid and an ownership line.
+// Inside of the front cover: a cream endpaper with a gold grid and an ownership line.
 function Endpaper() {
   return (
     <div
-      className="@container absolute inset-0 text-[#2a2c30]"
+      className="@container absolute inset-0 text-[#1d2131]"
       style={{
-        backgroundColor: "#e9e5db",
+        backgroundColor: "#efe7d6",
         backgroundImage:
-          "linear-gradient(rgba(42,44,48,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(42,44,48,0.08) 1px, transparent 1px)",
+          "linear-gradient(rgba(179,149,82,0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(179,149,82,0.22) 1px, transparent 1px)",
         backgroundSize: "6cqw 6cqw",
       }}
     >
       <div className="flex h-full flex-col justify-end p-[9cqw]">
         <p className="font-mono text-[3cqw] text-[#5b5f66]">This copy belongs to</p>
-        <div className="mt-[8cqw] border-b border-[#2a2c30]/50" />
+        <div className="mt-[8cqw] border-b border-[#b39552]" />
         <p className="mt-[8cqw] font-mono text-[2.6cqw] text-[#5b5f66]">Click to close</p>
       </div>
     </div>
+  );
+}
+
+// A pointed palace arch in gold hairline, with an inner line, springing ticks, a finial and a plinth.
+function Arch() {
+  const line = { fill: "none", stroke: "var(--gold)", strokeWidth: 1, vectorEffect: "non-scaling-stroke" as const };
+  return (
+    <svg
+      viewBox="0 0 200 293"
+      preserveAspectRatio="none"
+      className="pointer-events-none absolute -left-12 -top-[4.5rem] h-[calc(100%+2.5rem)] w-[calc(100%+4rem)] overflow-visible"
+      aria-hidden
+    >
+      <path d="M10 293 V120 A109 109 0 0 1 100 12.7 A109 109 0 0 1 190 120 V293 Z" fill="var(--cream)" fillOpacity="0.7" />
+      <path d="M4 293 V120 A115 115 0 0 1 100 6.6 A115 115 0 0 1 196 120 V293" {...line} />
+      <path d="M10 293 V120 A109 109 0 0 1 100 12.7 A109 109 0 0 1 190 120 V293" {...line} strokeOpacity="0.55" />
+      <path d="M-4 120 H14 M186 120 H204" {...line} />
+      <path d="M100 -6 L103.5 0 L100 6 L96.5 0 Z" fill="var(--gold)" />
+      <path d="M-14 293 H214 M-8 288 H208" {...line} />
+    </svg>
   );
 }
 
@@ -129,6 +149,7 @@ export function HeroBook() {
       }}
     >
       <div className="relative pb-14 pr-14">
+        <Arch />
         <div style={{ perspective: 1600 }}>
           <motion.div
             className="relative [transform-style:preserve-3d]"

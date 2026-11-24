@@ -19,7 +19,7 @@ export const book = {
   edition: "First digital edition, 2026", // PLACEHOLDER
   isbn: "Assigned at launch", // PLACEHOLDER
   publisher: "KnowledgeBag",
-  typeset: "Newsreader and Archivo",
+  typeset: "Cormorant Garamond, Newsreader and Archivo",
   cover: "Ar. Snehal Sontakke", // PLACEHOLDER
   editor: "Anjali Bhide", // PLACEHOLDER
 } as const;

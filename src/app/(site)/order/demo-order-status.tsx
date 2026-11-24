@@ -18,7 +18,7 @@ export function DemoOrderStatus() {
   if (order === null)
     return (
       <div>
-        <h1 className="text-4xl font-semibold tracking-[-0.025em]">Order not found</h1>
+        <h1 className="display text-5xl leading-[1.05]">Order not found</h1>
         <p className="mt-4 text-ink-2">This demo order is not stored in this browser.</p>
         <Link href="/" className="btn btn-line mt-8">
           Back to the book

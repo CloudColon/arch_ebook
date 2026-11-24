@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Newsreader, IBM_Plex_Mono } from "next/font/google";
+import { Archivo, Cormorant_Garamond, Newsreader, IBM_Plex_Mono } from "next/font/google";
 import { CartProvider } from "@/components/cart";
 import { book, business } from "@/content/book";
 import "./globals.css";
 
 const archivo = Archivo({ variable: "--font-archivo", subsets: ["latin"], axes: ["wdth"] });
 const newsreader = Newsreader({ variable: "--font-newsreader", subsets: ["latin"], style: ["normal", "italic"], axes: ["opsz"] });
+const cormorant = Cormorant_Garamond({ variable: "--font-cormorant", subsets: ["latin"], weight: ["500", "600"], style: ["normal", "italic"] });
 const plexMono = IBM_Plex_Mono({ variable: "--font-plex-mono", subsets: ["latin"], weight: ["400", "500"] });
 
 export const metadata: Metadata = {
@@ -16,13 +17,13 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f6f5f1",
+  themeColor: "#f7f5ef",
   colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${archivo.variable} ${newsreader.variable} ${plexMono.variable} antialiased`}>
+    <html lang="en" className={`${archivo.variable} ${newsreader.variable} ${cormorant.variable} ${plexMono.variable} antialiased`}>
       <body className="min-h-[100dvh]">
         <CartProvider>{children}</CartProvider>
       </body>

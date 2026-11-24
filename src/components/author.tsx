@@ -1,4 +1,5 @@
 import { authorBio, book } from "@/content/book";
+import { SectionMark } from "./section-mark";
 import { Reveal } from "./motion";
 
 export function Author() {
@@ -14,18 +15,19 @@ export function Author() {
             width={1200}
             height={1500}
             loading="lazy"
-            className="aspect-[4/5] w-full bg-line object-cover"
+            className="aspect-[4/5] w-full bg-line object-cover outline outline-1 outline-offset-[10px] outline-gold"
           />
         </Reveal>
         <Reveal className="md:col-span-6 md:col-start-7" delay={0.1}>
-          <h2 className="text-4xl font-semibold leading-[1.02] tracking-[-0.025em] md:text-5xl">About the author</h2>
+          <SectionMark n="IV">The author</SectionMark>
+          <h2 className="display mt-5 text-5xl leading-[1.04] md:text-6xl">{book.authorTitle}</h2>
           <p className="mt-6 max-w-[48ch] text-xl leading-relaxed">{authorBio.short}</p>
           {authorBio.long.map((p) => (
             <p key={p.slice(0, 20)} className="mt-4 max-w-[60ch] leading-relaxed text-ink-2">
               {p}
             </p>
           ))}
-          <dl className="mt-10 grid grid-cols-1 gap-6 border-t border-ink pt-6 sm:grid-cols-3">
+          <dl className="mt-10 grid grid-cols-1 gap-6 border-t border-gold pt-6 sm:grid-cols-3">
             {authorBio.facts.map((f) => (
               <div key={f.label}>
                 <dt className="annot">{f.label}</dt>

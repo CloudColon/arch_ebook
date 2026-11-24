@@ -10,7 +10,7 @@ export function OrderView({ order }: { order: OrderSummary }) {
     return (
       <div>
         <CheckCircle size={40} weight="light" />
-        <h1 className="mt-6 text-4xl font-semibold tracking-[-0.025em] md:text-5xl">Thank you, {order.name.split(" ")[0]}</h1>
+        <h1 className="mt-6 display text-5xl leading-[1.05] md:text-5xl">Thank you, {order.name.split(" ")[0]}</h1>
         <p className="mt-4 max-w-[52ch] text-lg leading-relaxed text-ink-2">
           {book.title} is yours. It is unlocked in this browser now.
         </p>
@@ -37,7 +37,7 @@ export function OrderView({ order }: { order: OrderSummary }) {
   return (
     <div>
       {failed ? <WarningCircle size={40} weight="light" /> : <Clock size={40} weight="light" />}
-      <h1 className="mt-6 text-4xl font-semibold tracking-[-0.025em]">{failed ? "Payment did not go through" : "Waiting for the bank"}</h1>
+      <h1 className="mt-6 display text-5xl leading-[1.05]">{failed ? "Payment did not go through" : "Waiting for the bank"}</h1>
       <p className="mt-4 max-w-[52ch] leading-relaxed text-ink-2">
         {failed
           ? "No money was taken for this attempt. You can try again, or use a different payment method."

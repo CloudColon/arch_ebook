@@ -14,7 +14,7 @@ export function Locked() {
       </header>
       <div className="mx-auto flex w-full max-w-[560px] flex-1 flex-col justify-center px-4 pb-24">
         <LockSimple size={36} weight="light" />
-        <h1 className="mt-6 text-4xl font-semibold tracking-[-0.025em]">This book is for readers who own it</h1>
+        <h1 className="mt-6 display text-5xl leading-[1.05]">This book is for readers who own it</h1>
         <p className="mt-4 leading-relaxed text-ink-2">
           Buy {book.title} to unlock all {book.chaptersCount} chapters, or restore access if you have already paid.
         </p>

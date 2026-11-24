@@ -15,7 +15,7 @@ export default function ContactPage() {
     <div className="mx-auto max-w-[1320px] px-4 py-16 md:px-8 md:py-24">
       <div className="grid gap-12 md:grid-cols-12">
         <div className="md:col-span-5">
-          <h1 className="text-4xl font-semibold leading-[1.05] tracking-[-0.025em] md:text-5xl">Contact</h1>
+          <h1 className="display text-5xl leading-[1.05] md:text-5xl">Contact</h1>
           <p className="mt-5 max-w-[42ch] text-lg leading-relaxed text-ink-2">
             Questions about an order, access, or bulk copies for a studio or college? We reply within one working day.
           </p>

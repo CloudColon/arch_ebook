@@ -1,25 +1,25 @@
 import { book, business } from "@/content/book";
 
-// The cover is a drawing sheet: the ground floor plan of a courtyard house, with a title block below.
-// Scales with its container (cqw units).
+// The cover is a navy cloth hardback with a drawing sheet stamped in gold: the ground floor plan of a
+// courtyard house, with a title block below. Scales with its container (cqw units).
 // PLACEHOLDER: replace with the final cover artwork if a designer delivers one.
 
-const INK = "#2a2c30";
-const PAPER = "#f3f1ea";
-const FAINT = "#8a8e95";
+const INK = "#d3b673"; // gold foil, used for every stamped line
+const PAPER = "#1f2a5c"; // navy cloth
+const FAINT = "#a8925c";
 
-// The courtyard floor, hatched, with the morning sun on it.
+// The courtyard floor, hatched, with a pool of light on it.
 function CourtyardFloor() {
   return (
     <>
       <defs>
         <pattern id="kb-hatch" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-          <line x1="0" y1="0" x2="0" y2="7" stroke={INK} strokeWidth="1.2" strokeOpacity="0.5" />
+          <line x1="0" y1="0" x2="0" y2="7" stroke={INK} strokeWidth="1.2" strokeOpacity="0.35" />
         </pattern>
       </defs>
-      <rect width="100" height="100" fill="#ddd8cc" />
+      <rect width="100" height="100" fill="#26326b" />
       <rect width="100" height="100" fill="url(#kb-hatch)" />
-      <rect x="18" y="10" width="82" height="90" fill="#f7f4ec" />
+      <rect x="18" y="10" width="82" height="90" fill={INK} fillOpacity="0.16" />
     </>
   );
 }
@@ -213,24 +213,24 @@ function Plan() {
 export function BookCover({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`@container relative aspect-[2/3] overflow-hidden text-[#2a2c30] ${className}`}
+      className={`@container relative aspect-[2/3] overflow-hidden text-[#e6d29c] ${className}`}
       style={{
         backgroundColor: PAPER,
-        backgroundImage: `linear-gradient(rgba(42,44,48,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(42,44,48,0.045) 1px, transparent 1px)`,
-        backgroundSize: "4cqw 4cqw",
+        backgroundImage: `radial-gradient(120% 90% at 30% 20%, rgba(255,255,255,0.07), transparent 60%), linear-gradient(rgba(211,182,115,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(211,182,115,0.05) 1px, transparent 1px)`,
+        backgroundSize: "100% 100%, 4cqw 4cqw, 4cqw 4cqw",
       }}
       aria-label={`${book.title} by ${book.authorTitle}, cover`}
       role="img"
     >
       {/* Sheet border */}
-      <div className="absolute inset-[3.5cqw] flex flex-col border-[0.5cqw] border-[#2a2c30] p-[3cqw]">
+      <div className="absolute inset-[3.5cqw] flex flex-col border-[0.5cqw] border-[#d3b673] p-[3cqw] outline outline-[0.25cqw] outline-offset-[1.2cqw] outline-[#d3b673]/60">
         <Plan />
 
         {/* Title block */}
-        <div className="mt-auto grid grid-cols-3 border-[0.35cqw] border-[#2a2c30]">
-          <div className="col-span-3 border-b-[0.35cqw] border-[#2a2c30] px-[2.6cqw] pb-[2.4cqw] pt-[2cqw]">
-            <p className="text-[12.5cqw] font-semibold leading-[0.92] tracking-[-0.035em] [font-stretch:112%]">{book.title}</p>
-            <p className="mt-[1.4cqw] font-serif text-[3.9cqw] italic leading-[1.2] text-[#4a4e55]">{book.subtitle}</p>
+        <div className="mt-auto grid grid-cols-3 border-[0.35cqw] border-[#d3b673]">
+          <div className="col-span-3 border-b-[0.35cqw] border-[#d3b673] px-[2.6cqw] pb-[2.4cqw] pt-[2cqw]">
+            <p className="font-display text-[15cqw] font-semibold leading-[0.9] tracking-[-0.01em] text-[#ead7a0]">{book.title}</p>
+            <p className="mt-[1.4cqw] font-display text-[4.6cqw] font-medium italic leading-[1.15] text-[#cdb27a]">{book.subtitle}</p>
           </div>
           <Cell k="Drawn by" v={book.authorTitle} span />
           <Cell k="Sheet" v="A-01" last />
@@ -245,11 +245,11 @@ export function BookCover({ className = "" }: { className?: string }) {
 function Cell({ k, v, span, last, bottom }: { k: string; v: string; span?: boolean; last?: boolean; bottom?: boolean }) {
   return (
     <div
-      className={`px-[2.6cqw] py-[1.4cqw] ${span ? "col-span-2" : ""} ${last ? "" : "border-r-[0.35cqw] border-[#2a2c30]"} ${
-        bottom ? "" : "border-b-[0.35cqw] border-[#2a2c30]"
+      className={`px-[2.6cqw] py-[1.4cqw] ${span ? "col-span-2" : ""} ${last ? "" : "border-r-[0.35cqw] border-[#d3b673]"} ${
+        bottom ? "" : "border-b-[0.35cqw] border-[#d3b673]"
       }`}
     >
-      <p className="font-mono text-[2.3cqw] uppercase tracking-[0.06em] text-[#6c7077]">{k}</p>
+      <p className="font-mono text-[2.3cqw] uppercase tracking-[0.06em] text-[#a8925c]">{k}</p>
       <p className="mt-[0.4cqw] truncate text-[3.6cqw] font-semibold leading-tight">{v}</p>
     </div>
   );

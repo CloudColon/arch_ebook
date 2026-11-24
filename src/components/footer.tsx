@@ -12,7 +12,8 @@ const legal = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-line bg-paper">
+    <footer className="bg-paper">
+      <div className="gold-double" aria-hidden />
       <div className="mx-auto grid max-w-[1320px] gap-12 px-4 py-16 md:grid-cols-12 md:px-8">
         <div className="md:col-span-5">
           <Wordmark />
@@ -21,7 +22,7 @@ export function Footer() {
           </p>
         </div>
         <address className="not-italic text-sm leading-relaxed text-ink-2 md:col-span-4">
-          <p className="font-semibold text-ink">{business.legalName}</p>
+          <p className="font-display text-lg font-semibold text-accent">{business.legalName}</p>
           {business.addressLines.map((l) => (
             <p key={l}>{l}</p>
           ))}

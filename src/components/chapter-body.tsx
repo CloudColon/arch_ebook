@@ -16,7 +16,7 @@ export function ChapterBody({
       {chapter.blocks.map((b, i) => {
         if (b.type === "h") {
           return (
-            <h3 key={i} className="mb-4 mt-12 font-sans text-xl font-semibold tracking-[-0.01em] md:max-w-[34em]">
+            <h3 key={i} className="mb-4 mt-12 font-display text-3xl font-semibold text-accent md:max-w-[34em]">
               {b.text}
             </h3>
           );
@@ -43,7 +43,7 @@ export function ChapterBody({
             <p
               className={`mb-[1.15em] ${
                 isFirst && dropCap
-                  ? "first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:font-sans first-letter:text-[3.6em] first-letter:font-semibold first-letter:leading-[0.8]"
+                  ? "first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:font-display first-letter:text-[4.2em] first-letter:font-semibold first-letter:leading-[0.78] first-letter:text-accent"
                   : ""
               }`}
             >

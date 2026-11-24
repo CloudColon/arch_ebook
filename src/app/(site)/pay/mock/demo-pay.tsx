@@ -29,7 +29,7 @@ export function DemoPay() {
       </div>
       <div className="p-6">
         <p className="annot">Order {order.id}</p>
-        <p className="mt-2 text-4xl font-semibold tracking-[-0.02em]">{formatINR(order.amountPaise)}</p>
+        <p className="mt-2 display text-5xl">{formatINR(order.amountPaise)}</p>
         <p className="mt-1 text-ink-2">
           {order.name}, {order.email}
         </p>
