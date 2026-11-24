@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+/* Palette: ivory, white, cream, space grey. One dark ink doubles as the accent. Corners are square everywhere. */
+html { color-scheme: light; }
+
+:root {
+  --paper: #f6f5f1;
+  --sheet: #fcfbf8;
+  --cream: #ebe7de;
+  --line: #d5d2ca;
+  --ink: #2a2c30;
+  --ink-2: #565a61;
+  --ink-3: #6c7077;
+  --accent: #3b3f45;
+  --on-accent: #f6f5f1;
+  --shadow: 42 44 48;
+}
+
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-sheet: var(--sheet);
+  --color-cream: var(--cream);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-accent: var(--accent);
+  --color-on-accent: var(--on-accent);
+  --font-sans: var(--font-archivo);
+  --font-serif: var(--font-newsreader);
+  --font-mono: var(--font-plex-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* Drawing annotation text: small mono, used for dimensions, notes and the title block. */
+.annot {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-3);
+}
+
+/* A dimension line with end ticks, as drawn on an architectural sheet. */
+.dim-h {
+  position: relative;
+  height: 1px;
+  background: var(--ink-3);
+}
+.dim-h::before,
+.dim-h::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  width: 1px;
+  height: 11px;
+  background: var(--ink-3);
+  transform: rotate(45deg);
+}
+.dim-h::before { left: 0; }
+.dim-h::after { right: 0; }
+
+.dim-v {
+  position: relative;
+  width: 1px;
+  background: var(--ink-3);
+}
+.dim-v::before,
+.dim-v::after {
+  content: "";
+  position: absolute;
+  left: -5px;
+  width: 11px;
+  height: 1px;
+  background: var(--ink-3);
+  transform: rotate(45deg);
+}
+.dim-v::before { top: 0; }
+.dim-v::after { bottom: 0; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  height: 3rem;
+  padding: 0 1.4rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn:active { transform: translateY(1px) scale(0.99); }
+.btn-solid { background: var(--accent); color: var(--on-accent); }
+.btn-solid:hover { background: var(--ink); }
+.btn-line { border: 1px solid var(--ink); color: var(--ink); }
+.btn-line:hover { background: var(--ink); color: var(--paper); }
+
+.field-label { display: block; font-size: 0.875rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
+.field {
+  width: 100%;
+  height: 3rem;
+  padding: 0 0.9rem;
+  background: var(--sheet);
+  border: 1px solid var(--ink-3);
+  color: var(--ink);
+  font-size: 1rem;
+}
+.field::placeholder { color: var(--ink-3); }
+.field:focus { outline: 2px solid var(--ink); outline-offset: 0; border-color: var(--ink); }
+.field[aria-invalid="true"] { border-color: #b3261e; }
+.field-error { margin-top: 0.4rem; font-size: 0.85rem; color: #b3261e; }
+
+/* Long-form book text */
+.prose-book p { margin-bottom: 1.15em; }
+
+/* The book object: spine and page block hung off the cover in 3D. */
+.book-spine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 100%;
+  transform-origin: left center;
+  transform: rotateY(90deg) translateX(-34px);
+  background: linear-gradient(90deg, #cfcabf, #e7e3d9 40%, #d9d4c9);
+}
+.book-pages {
+  position: absolute;
+  top: 3px;
+  right: 0;
+  width: 30px;
+  height: calc(100% - 6px);
+  transform-origin: right center;
+  transform: rotateY(90deg) translateX(30px);
+  background: repeating-linear-gradient(90deg, #f3f1ea 0 2px, #e2ded4 2px 3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+/* Reader themes chosen by the reader, independent of the system setting. */
+[data-reader-theme="white"] {
+  --paper: #fdfdfb; --sheet: #ffffff; --cream: #ebe7de; --line: #d5d2ca;
+  --ink: #2a2c30; --ink-2: #565a61; --ink-3: #6c7077; --accent: #3b3f45; --on-accent: #f6f5f1;
+}
+[data-reader-theme="ivory"] {
+  --paper: #efe9dc; --sheet: #f4efe4; --cream: #e4dccb; --line: #d3c9b5;
+  --ink: #33302b; --ink-2: #5d574e; --ink-3: #736c61; --accent: #3b3f45; --on-accent: #f4efe4;
+}
