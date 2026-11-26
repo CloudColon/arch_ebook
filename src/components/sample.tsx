@@ -27,7 +27,6 @@ export function Sample() {
             <p className="mt-1 font-display text-2xl font-semibold text-accent">
               Chapter II. {next.title}
             </p>
-            <p className="mt-1 text-ink-2">{next.line}</p>
           </div>
           <BuyButton />
         </div>

@@ -1,83 +1,18 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { animate, motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "motion/react";
-import { X } from "@phosphor-icons/react";
-import { book, business } from "@/content/book";
-import { chapterOne } from "@/content/chapter-one";
+import { book } from "@/content/book";
 import { BookCover } from "./book-cover";
-import { useCart } from "./cart";
+import { BuyPage, ChapterOpener, LEAVES } from "./inside-pages";
 import { DrawLine } from "./motion";
 
 // The hero book, standing in a palace arch drawn in gold. It tilts toward the pointer, and a click swings
-// the cover open on its spine to the first page of chapter one.
+// the cover open on its spine to the Chapter 01 spread. From there the visitor turns pages like a real book: click the
+// right-hand page to turn it over, the left-hand page to turn it back.
 
-// The first page of chapter one, revealed under the cover.
-function FirstPage({ onClose }: { onClose: () => void }) {
-  const { add } = useCart();
-  const opening = chapterOne.blocks.find((b) => b.type === "p");
-  const text = opening && "text" in opening ? opening.text.split(". ").slice(0, 3).join(". ") + "." : "";
-  return (
-    <div className="@container absolute inset-0 bg-[#fdfcf8] text-[#1d2131] shadow-[inset_10px_0_18px_-12px_rgb(31_42_92/0.35)]">
-    <div className="flex h-full flex-col p-[8cqw]">
-      <div className="flex items-start justify-between">
-        <p className="font-mono text-[3cqw] uppercase tracking-[0.12em] text-[#8a7340]">Chapter I</p>
-        <button
-          type="button"
-          onClick={onClose}
-          className="-mr-[3cqw] -mt-[3cqw] grid size-[9cqw] place-items-center hover:bg-[#ece8de]"
-          aria-label="Close the book"
-        >
-          <X className="size-[4.5cqw]" />
-        </button>
-      </div>
-      <p className="mt-[3cqw] font-display text-[10cqw] font-semibold leading-[1] text-[#1f2a5c]">{chapterOne.title}</p>
-      <p className="mt-[5cqw] font-serif text-[4.3cqw] leading-[1.6] first-letter:float-left first-letter:mr-[1.2cqw] first-letter:font-display first-letter:text-[14cqw] first-letter:font-semibold first-letter:leading-[0.8] first-letter:text-[#1f2a5c]">
-        {text}
-      </p>
-      <div className="mt-auto grid gap-[2.4cqw]">
-        <Link
-          href="/#sample"
-          onClick={onClose}
-          className="flex h-[11cqw] items-center justify-center bg-[#1f2a5c] text-[4cqw] font-semibold text-[#f7f5ef] hover:bg-[#151d44]"
-        >
-          Read chapter one
-        </Link>
-        <button
-          type="button"
-          onClick={() => add()}
-          className="flex h-[11cqw] items-center justify-center border border-[#1f2a5c] text-[4cqw] font-semibold text-[#1f2a5c] hover:bg-[#1f2a5c] hover:text-[#f7f5ef]"
-        >
-          Buy the ebook ₹{book.pricePaise / 100}
-        </button>
-        <p className="text-center font-mono text-[2.6cqw] text-[#6c7077]">{business.brand}</p>
-      </div>
-    </div>
-    </div>
-  );
-}
-
-// Inside of the front cover: a cream endpaper with a gold grid and an ownership line.
-function Endpaper() {
-  return (
-    <div
-      className="@container absolute inset-0 text-[#1d2131]"
-      style={{
-        backgroundColor: "#efe7d6",
-        backgroundImage:
-          "linear-gradient(rgba(179,149,82,0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(179,149,82,0.22) 1px, transparent 1px)",
-        backgroundSize: "6cqw 6cqw",
-      }}
-    >
-      <div className="flex h-full flex-col justify-end p-[9cqw]">
-        <p className="font-mono text-[3cqw] text-[#5b5f66]">This copy belongs to</p>
-        <div className="mt-[8cqw] border-b border-[#b39552]" />
-        <p className="mt-[8cqw] font-mono text-[2.6cqw] text-[#5b5f66]">Click to close</p>
-      </div>
-    </div>
-  );
-}
+// A turned leaf lies just inside the open cover; each later one sits slightly on top of the one before.
+const turnedAngle = (k: number) => -136 + k * 1.2;
 
 // A pointed palace arch in gold hairline, with an inner line, springing ticks, a finial and a plinth.
 function Arch() {
@@ -105,6 +40,11 @@ export function HeroBook() {
   const py = useMotionValue(0);
   const openness = useMotionValue(0);
   const [open, setOpen] = useState(false);
+  const [turned, setTurned] = useState(0); // leaves turned over to the left
+  const close = () => {
+    setOpen(false);
+    setTurned(0);
+  };
 
   // Closed: three-quarter view that follows the pointer. Open: almost face-on so the page reads.
   const rotateY = useSpring(useTransform([px, openness], ([p, o]: number[]) => (-24 + p * 16) * (1 - o) + (-4 + p * 4) * o), {
@@ -116,7 +56,7 @@ export function HeroBook() {
     damping: 18,
   });
   const coverAngle = useTransform(openness, [0, 1], [0, -138]);
-  const shiftX = useTransform(openness, [0, 1], ["0%", "18%"]);
+  const shiftX = useTransform(openness, [0, 1], ["0%", "24%"]);
 
   useEffect(() => {
     const c = animate(openness, open ? 1 : 0, reduce ? { duration: 0 } : { type: "spring", stiffness: 70, damping: 16 });
@@ -125,7 +65,11 @@ export function HeroBook() {
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowRight") setTurned((t) => Math.min(LEAVES.length, t + 1));
+      if (e.key === "ArrowLeft") setTurned((t) => Math.max(0, t - 1));
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
@@ -152,19 +96,71 @@ export function HeroBook() {
         <Arch />
         <div style={{ perspective: 1600 }}>
           <motion.div
-            className="relative [transform-style:preserve-3d]"
+            className="pointer-events-none relative [transform-style:preserve-3d]"
             style={{ rotateY, rotateX, x: shiftX }}
             initial={reduce ? false : { opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="book-spine" aria-hidden />
+            <span
+              className="book-spine flex items-center justify-center"
+              style={{ background: "linear-gradient(90deg, #2a1c16, #4a3328 40%, #33231b)" }}
+              aria-hidden
+            >
+              <span className="rotate-180 whitespace-nowrap text-[15px] font-extrabold uppercase tracking-[0.08em] text-[#f5f2ea] [writing-mode:vertical-rl]">
+                {book.title}
+              </span>
+            </span>
             <span className="book-pages" aria-hidden />
 
-            {/* First page, under the cover */}
-            <div className="relative aspect-[2/3] shadow-[18px_30px_50px_-24px_rgb(42_44_48/0.5)]" inert={!open}>
-              <FirstPage onClose={() => setOpen(false)} />
+            {/* Last page, under every leaf */}
+            <div
+              className="pointer-events-auto relative aspect-[2/3] shadow-[18px_30px_50px_-24px_rgb(42_44_48/0.5)]"
+              style={{ transform: `translateZ(-${LEAVES.length + 2}px)` }}
+              inert={!open}
+            >
+              <BuyPage onRead={close} />
             </div>
+
+            {/* Turnable leaves, printed on both sides. Painted last-first so the first leaf is on top. */}
+            {LEAVES.map((leaf, k) => ({ ...leaf, k }))
+              .reverse()
+              .map(({ key, label, front, back, k }) => {
+                const isTurned = k < turned;
+                const canTurn = k === turned; // the right-hand page on top
+                const canReturn = k === turned - 1; // the left-hand page on top
+                return (
+                  <motion.div
+                    key={key}
+                    role="button"
+                    tabIndex={open && (canTurn || canReturn) ? 0 : -1}
+                    aria-label={isTurned ? "Turn back a page" : `Turn to ${label}`}
+                    inert={!open}
+                    onClick={() => {
+                      if (canTurn) setTurned(k + 1);
+                      else if (canReturn) setTurned(k);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        if (canTurn) setTurned(k + 1);
+                        else if (canReturn) setTurned(k);
+                      }
+                    }}
+                    className={`pointer-events-auto absolute inset-0 origin-left [transform-style:preserve-3d] ${canTurn || canReturn ? "cursor-pointer" : ""}`}
+                    style={{ z: isTurned ? 0 : -1 - k }}
+                    animate={{ rotateY: isTurned ? turnedAngle(k) : 0 }}
+                    transition={reduce ? { duration: 0 } : { type: "spring", stiffness: 60, damping: 15 }}
+                  >
+                    <div className="absolute inset-0 [backface-visibility:hidden]">
+                      {front}
+                    </div>
+                    <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                      {back}
+                    </div>
+                  </motion.div>
+                );
+              })}
 
             {/* Cover leaf hinged on the spine */}
             <motion.div
@@ -172,14 +168,15 @@ export function HeroBook() {
               tabIndex={0}
               aria-expanded={open}
               aria-label={open ? "Close the book" : `Open ${book.title}`}
-              onClick={() => setOpen((v) => !v)}
+              onClick={() => (open ? close() : setOpen(true))}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  setOpen((v) => !v);
+                  if (open) close();
+                  else setOpen(true);
                 }
               }}
-              className="absolute inset-0 origin-left cursor-pointer [transform-style:preserve-3d] focus-visible:outline-offset-8"
+              className="pointer-events-auto absolute inset-0 origin-left cursor-pointer [transform-style:preserve-3d] focus-visible:outline-offset-8"
               style={{ rotateY: coverAngle }}
             >
               <div className="absolute inset-0 [backface-visibility:hidden]">
@@ -190,23 +187,34 @@ export function HeroBook() {
                 />
               </div>
               <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                <Endpaper />
+                <ChapterOpener n={1} />
               </div>
             </motion.div>
           </motion.div>
         </div>
 
-        <div className="absolute bottom-2 left-0 right-14">
+        <div className={`absolute bottom-2 left-0 right-14 transition-opacity duration-500 ${open ? "opacity-0" : ""}`}>
           <DrawLine axis="x" delay={0.6} />
           <p className="annot mt-2 text-center">{book.chaptersCount} chapters</p>
         </div>
-        <div className="absolute bottom-14 right-8 top-0 flex items-center">
+        <div className={`absolute bottom-14 right-8 top-0 flex items-center transition-opacity duration-500 ${open ? "opacity-0" : ""}`}>
           <DrawLine axis="y" className="h-full" delay={0.75} />
           <p className="annot absolute left-3 top-1/2 -translate-y-1/2 whitespace-nowrap [writing-mode:vertical-rl]">{book.pages} pages</p>
         </div>
       </div>
 
-      <p className="annot mt-1 pr-14">{open ? "Esc or click the cover to close" : "Click the book to open it"}</p>
+      <div className="annot mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 pr-14">
+        {open ? (
+          <>
+            <span>Click the right page to turn it, the left page to go back</span>
+            <button type="button" onClick={close} className="underline underline-offset-4 hover:text-ink">
+              Close the book
+            </button>
+          </>
+        ) : (
+          "Click the book to open it"
+        )}
+      </div>
     </div>
   );
 }

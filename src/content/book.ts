@@ -3,8 +3,8 @@
 
 export const book = {
   id: "thresholds-ebook",
-  title: "Thresholds", // PLACEHOLDER
-  subtitle: "On light, courtyards and the rooms in between", // PLACEHOLDER
+  title: "AI Blueprint",
+  subtitle: "100 ready-to-use ChatGPT prompts for design, planning and project delivery",
   author: "Snehal Sontakke",
   authorTitle: "Ar. Snehal Sontakke",
   pitch:
@@ -13,7 +13,7 @@ export const book = {
   mrpPaise: 89900, // PLACEHOLDER (struck-through launch price, set to null to hide)
   pages: 212, // PLACEHOLDER
   readingTime: "About 5 hours", // PLACEHOLDER
-  chaptersCount: 9,
+  chaptersCount: 10,
   language: "English",
   format: "Read in your browser on phone, tablet or laptop",
   edition: "First digital edition, 2026", // PLACEHOLDER
@@ -26,17 +26,55 @@ export const book = {
 
 export type Book = typeof book;
 
+// What every prompt in the book comes with, and who the book is for. Shown beside the contents.
+export const promptIncludes = [
+  "Purpose & ideal point of use",
+  "Required inputs",
+  "Copy-ready ChatGPT prompt",
+  "Expected output",
+  "Illustrative output preview",
+  "Practical tips & refinement prompts",
+] as const;
+
+export const designedFor = [
+  "Architects",
+  "Interior Designers",
+  "Civil Engineers",
+  "3D Visualisers",
+  "Students",
+  "Design Consultants",
+] as const;
+
+// The band at the top of the footer.
+export const footerBand = {
+  headline: "100 Prompts. 10 Chapters. One Complete AI Workflow.",
+  tagline: "Think better. Design smarter. Work faster.",
+  stats: [
+    { figure: "100", label: "Prompts", line: "Ready to use" },
+    { figure: "10", label: "Chapters", line: "Complete workflow" },
+    { figure: "100%", label: "Practical", line: "Copy-ready approach" },
+  ],
+} as const;
+
+// The three figures under the hero title.
+export const heroStats = [
+  { figure: "100", label: "Ready-to-use prompts", line: "Practical, copy-and-paste ChatGPT prompts." },
+  { figure: "10", label: "Professional chapters", line: "Covering architecture and interior design." },
+  { figure: "One", label: "Complete workflow", line: "From initial concept to final presentation." },
+] as const;
+
 export const toc = [
-  { n: 1, title: "The Room Before the Room", line: "Otlas, verandahs and the step where a house begins." },
-  { n: 2, title: "Courtyards Are Not Empty", line: "Why the open middle does more work than any room around it." },
-  { n: 3, title: "A Wall That Breathes", line: "Jaalis, screens and the art of letting some things through." },
-  { n: 4, title: "Working With the Sun", line: "Orientation, overhangs and the hours a room is lived in." },
-  { n: 5, title: "Lime, Brick and Stone", line: "Choosing materials that age with the family, not against it." },
-  { n: 6, title: "The Stair as a Place to Sit", line: "Circulation that doubles as conversation." },
-  { n: 7, title: "Rain, Roofs and Runoff", line: "Designing for four months of monsoon, not four days of photos." },
-  { n: 8, title: "Small Plots, Large Lives", line: "Thirty-foot frontages and how to make them generous." },
-  { n: 9, title: "Drawing Less, Building Better", line: "What two decades of site visits taught about the drawing set." },
-] as const; // PLACEHOLDER chapter titles
+  { n: 1, title: "Project Brief & Architectural Planning" },
+  { n: 2, title: "Site Analysis & Zoning" },
+  { n: 3, title: "Floor Plan Development" },
+  { n: 4, title: "Interior Design & Space Planning" },
+  { n: 5, title: "Architectural Visualisation & Plan Rendering" },
+  { n: 6, title: "Elevations, Sections & Façade Design" },
+  { n: 7, title: "Materials & Colour Palettes" },
+  { n: 8, title: "Photorealistic Rendering & Image Enhancement" },
+  { n: 9, title: "Technical Documentation & Detailing" },
+  { n: 10, title: "Presentation & Professional Practice" },
+] as const;
 
 export const testimonials = [
   {
