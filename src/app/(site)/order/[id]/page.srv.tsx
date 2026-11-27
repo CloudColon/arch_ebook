@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { OrderView } from "@/components/order-view";
+import { headers } from "next/headers";
 import { getOrder } from "@/server/orders";
+import { activeDownload } from "@/server/download";
 
 export const metadata: Metadata = { title: "Your order", robots: { index: false } };
 
@@ -21,5 +23,8 @@ async function OrderStatus({ params }: { params: Promise<{ id: string }> }) {
   const order = await getOrder(decodeURIComponent(id));
   if (!order) notFound();
 
-  return <OrderView order={order} />;
+  if (order.status !== "paid") return <OrderView order={order} />;
+  const h = await headers();
+  const origin = process.env.SITE_URL ?? `${h.get("x-forwarded-proto") ?? "http"}://${h.get("host")}`;
+  return <OrderView order={order} download={activeDownload(order, origin)} />;
 }

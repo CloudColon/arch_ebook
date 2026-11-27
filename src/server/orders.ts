@@ -18,9 +18,11 @@ export type Order = {
   status: OrderStatus;
   provider: string;
   providerRef?: string;
+  providerTxnRef?: string; // ICICI TxnRefNo of the latest payment attempt
   createdAt: string;
   paidAt?: string;
   termsAcceptedAt?: string; // when the buyer ticked the checkout checkbox
+  downloadEmailedAt?: string; // when the 24-hour PDF link was emailed
   termsVersion?: string; // the terms' "last updated" date they agreed to
 };
 

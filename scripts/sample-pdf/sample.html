@@ -1,0 +1,218 @@
+<!doctype html>
+<!-- Source of public/ai-blueprint-sample.pdf. Rebuild with scripts/sample-pdf/build.sh after editing. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AI Blueprint: free sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800&family=Cormorant+Garamond:wght@500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --paper: #f7f5ef; --sheet: #fdfcf8; --cream: #efeadf; --line: #ddd6c8;
+    --ink: #1d2131; --ink-2: #4a4f60; --ink-3: #686c7b; --accent: #1f2a5c; --gold: #b39552;
+    --brown: #3b2a22; --terracotta: #c4612f;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: "Newsreader", Georgia, serif; color: var(--ink); background: var(--sheet); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; height: 297mm; padding: 20mm 18mm 16mm; position: relative; overflow: hidden; page-break-after: always; background: var(--sheet); }
+  .page:last-child { page-break-after: auto; }
+  .run { position: absolute; top: 9mm; left: 18mm; right: 18mm; display: flex; justify-content: space-between; font: 500 8pt "IBM Plex Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); border-bottom: .3mm solid var(--gold); padding-bottom: 2mm; }
+  .foot { position: absolute; bottom: 9mm; left: 18mm; right: 18mm; display: flex; justify-content: space-between; font: 400 8pt "IBM Plex Mono", monospace; color: var(--ink-3); }
+  .mono { font-family: "IBM Plex Mono", monospace; font-size: 8.5pt; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-3); }
+  h1, h2 { font-family: "Cormorant Garamond", serif; font-weight: 600; color: var(--accent); line-height: 1.05; }
+  h2 { font-size: 34pt; margin: 8mm 0 3mm; }
+  .rule { width: 14mm; height: .8mm; background: var(--terracotta); margin: 3mm 0 7mm; }
+  p { font-size: 11.5pt; line-height: 1.6; color: var(--ink-2); margin-bottom: 4mm; max-width: 150mm; }
+
+  /* Cover */
+  .cover { padding: 0; background: var(--paper); }
+  .cover .photo { position: absolute; inset: auto 0 0 0; height: 125mm; background: url("../../src/assets/cover-building.jpg") center 40% / cover; }
+  .cover .band { position: absolute; left: 0; right: 0; bottom: 0; height: 22mm; background: var(--brown); color: #f5f2ea; display: flex; align-items: center; justify-content: center; font: 800 13pt "Archivo", sans-serif; letter-spacing: .14em; }
+  .cover .text { padding: 26mm 20mm 0; }
+  .cover .ai { font: 800 64pt/0.95 "Archivo", sans-serif; color: var(--terracotta); }
+  .cover .bp { font: 800 64pt/0.95 "Archivo", sans-serif; color: #2a2a2a; letter-spacing: -.01em; }
+  .cover .for { font: 600 11pt "Archivo", sans-serif; letter-spacing: .06em; margin-top: 6mm; color: #2a2a2a; }
+  .cover .hr { height: .4mm; background: #2a2a2a; margin: 6mm 0; }
+  .cover .count { display: flex; align-items: center; gap: 4mm; font: 800 16pt/1.1 "Archivo", sans-serif; color: #2a2a2a; }
+  .cover .count b { font-size: 44pt; color: var(--terracotta); }
+  .cover .sub { font: 400 11pt "Archivo", sans-serif; color: #333; }
+  .cover .tag { position: absolute; top: 12mm; right: 14mm; background: var(--accent); color: #f7f5ef; font: 500 8.5pt "IBM Plex Mono", monospace; letter-spacing: .1em; text-transform: uppercase; padding: 2.5mm 4mm; }
+  .cover .author { font: 500 9pt "IBM Plex Mono", monospace; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-top: 7mm; }
+
+  /* Contents */
+  .toc { list-style: none; margin-top: 4mm; border-top: .3mm solid var(--line); }
+  .toc li { display: flex; gap: 6mm; padding: 3.2mm 0; border-bottom: .3mm solid var(--line); font-size: 13pt; }
+  .toc .n { font: 500 9pt "IBM Plex Mono", monospace; color: var(--ink-3); width: 10mm; padding-top: 1mm; }
+  .toc .free { margin-left: auto; font: 500 8pt "IBM Plex Mono", monospace; color: var(--terracotta); text-transform: uppercase; letter-spacing: .08em; padding-top: 1.2mm; }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10mm; margin-top: 10mm; }
+  .cols h3 { font: 600 10pt "Archivo", sans-serif; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); margin-bottom: 3mm; }
+  .cols ul { list-style: none; }
+  .cols li { font-size: 11pt; color: var(--ink-2); padding: 1.6mm 0; border-bottom: .3mm dotted var(--line); }
+
+  /* Prompt page */
+  .ptitle { display: flex; align-items: center; gap: 6mm; margin-top: 6mm; }
+  .badge { background: var(--terracotta); color: #fff; font: 600 12pt "Archivo", sans-serif; padding: 2.5mm 4.5mm; white-space: nowrap; }
+  .ptitle h2 { margin: 0; font-size: 26pt; }
+  .meta { display: grid; grid-template-columns: 1fr 1fr 1.3fr; border: .3mm solid var(--line); margin-top: 7mm; }
+  .meta > div { padding: 4mm; border-right: .3mm solid var(--line); }
+  .meta > div:last-child { border-right: 0; }
+  .meta h4 { font: 600 9pt "Archivo", sans-serif; color: var(--ink); margin-bottom: 1.5mm; }
+  .meta p, .meta li { font-size: 9.5pt; line-height: 1.45; margin: 0; }
+  .meta ul { padding-left: 4mm; color: var(--ink-2); }
+  .label { font: 600 10pt "Archivo", sans-serif; color: var(--ink); margin: 7mm 0 2.5mm; }
+  .prompt { background: #f6e9dc; border-left: 1mm solid var(--terracotta); padding: 5mm 6mm; font: 400 11pt/1.6 "Archivo", sans-serif; color: #2b2a30; }
+  table { border-collapse: collapse; width: 100%; font: 400 10pt "Archivo", sans-serif; }
+  th, td { text-align: left; padding: 2mm 3mm; border-bottom: .3mm solid var(--line); }
+  th { background: var(--cream); font-weight: 600; }
+  td.r, th.r { text-align: right; }
+  tr.total td { font-weight: 600; background: var(--cream); }
+  .tips { margin-top: 6mm; padding-left: 5mm; }
+  .tips li { font-size: 10.5pt; line-height: 1.5; color: var(--ink-2); margin-bottom: 2mm; }
+
+  /* Inside pages */
+  .shot { width: auto; max-width: 100%; max-height: 104mm; border: .3mm solid var(--line); display: block; margin: 3mm auto 0; }
+  .cap { font: 400 8.5pt "IBM Plex Mono", monospace; color: var(--ink-3); margin: 2mm 0 4mm; text-align: center; }
+
+  /* Back */
+  .back { background: var(--accent); color: #f7f5ef; display: flex; flex-direction: column; justify-content: center; padding: 30mm 22mm; }
+  .back h2 { color: #f7f5ef; font-size: 44pt; }
+  .back p { color: #d9dbe6; font-size: 13pt; }
+  .back .price { font: 600 40pt "Cormorant Garamond", serif; margin: 6mm 0 2mm; }
+  .back .price s { font-size: 22pt; color: #9aa0bd; margin-left: 4mm; }
+  .back .cta { display: inline-block; margin-top: 8mm; background: #f7f5ef; color: var(--accent); font: 600 13pt "Archivo", sans-serif; padding: 4mm 8mm; text-decoration: none; }
+  .back .small { font: 400 9pt "IBM Plex Mono", monospace; color: #b8bcd2; margin-top: 18mm; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<!-- 1. Cover -->
+<section class="page cover">
+  <div class="tag">Free sample</div>
+  <div class="text">
+    <div class="ai">AI</div>
+    <div class="bp">BLUEPRINT</div>
+    <div class="for">ARCHITECTS • INTERIOR DESIGNERS •<br>CIVIL ENGINEERS • 3D VISUALISERS</div>
+    <div class="hr"></div>
+    <div class="count"><b>100</b><span>READY-TO-USE<br>CHATGPT PROMPTS</span></div>
+    <div class="hr"></div>
+    <div class="sub">A Practical Handbook for Design, Planning, Documentation,<br>3D Visualisation and Project Delivery</div>
+    <div class="author">Ar. Snehal Sontakke · KnowledgeBag</div>
+  </div>
+  <div class="photo"></div>
+  <div class="band">EDITION &nbsp;|&nbsp; 2026–27</div>
+</section>
+
+<!-- 2. Foreword -->
+<section class="page">
+  <div class="run"><span>AI Blueprint · Edition 2026–27</span><span>Free sample</span></div>
+  <h2>Foreword</h2>
+  <div class="rule"></div>
+  <p>Design and construction today demand the coordination of multiple disciplines: architecture, interiors, civil engineering, visualisation and project delivery. AI is emerging as a powerful collaborator that can speed up research, analysis, design exploration, documentation and communication across these workflows.</p>
+  <p>This handbook is created for architects, interior designers, civil engineers and 3D visualisers, along with students, design consultants, firms, freelancers and developers, who wish to use ChatGPT in a structured, practical and responsible way.</p>
+  <p>The 100 prompts are organised around a real project journey, starting from briefing and site analysis, moving through planning, design development, interiors, technical documentation, visualisation, costing, approvals and project delivery. Each prompt includes the purpose, required inputs, a copy-ready prompt, illustrative output, and refinement guidance.</p>
+  <div class="cols">
+    <div>
+      <h3>Every prompt comes with</h3>
+      <ul>
+        <li>Purpose &amp; ideal point of use</li>
+        <li>Required inputs</li>
+        <li>Copy-ready ChatGPT prompt</li>
+        <li>Expected output</li>
+        <li>Illustrative output preview</li>
+        <li>Practical tips &amp; refinement prompts</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Designed for</h3>
+      <ul>
+        <li>Architects</li>
+        <li>Interior Designers</li>
+        <li>Civil Engineers</li>
+        <li>3D Visualisers</li>
+        <li>Students</li>
+        <li>Design Consultants</li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>knowledgebag.com</span><span>2</span></div>
+</section>
+
+<!-- 3. Contents -->
+<section class="page">
+  <div class="run"><span>AI Blueprint · Edition 2026–27</span><span>Free sample</span></div>
+  <h2>Contents</h2>
+  <div class="rule"></div>
+  <ol class="toc">
+    <li><span class="n">01</span>Project Brief &amp; Architectural Planning<span class="free">In this sample</span></li>
+    <li><span class="n">02</span>Site Analysis &amp; Zoning</li>
+    <li><span class="n">03</span>Floor Plan Development</li>
+    <li><span class="n">04</span>Interior Design &amp; Space Planning</li>
+    <li><span class="n">05</span>Architectural Visualisation &amp; Plan Rendering</li>
+    <li><span class="n">06</span>Elevations, Sections &amp; Façade Design</li>
+    <li><span class="n">07</span>Materials &amp; Colour Palettes</li>
+    <li><span class="n">08</span>Photorealistic Rendering &amp; Image Enhancement</li>
+    <li><span class="n">09</span>Technical Documentation &amp; Detailing</li>
+    <li><span class="n">10</span>Presentation &amp; Professional Practice</li>
+  </ol>
+  <p style="margin-top:10mm">100 prompts across 10 chapters, in the order a real project runs. Start anywhere: each prompt stands on its own.</p>
+  <div class="foot"><span>knowledgebag.com</span><span>3</span></div>
+</section>
+
+<!-- 4. Sample prompt -->
+<section class="page">
+  <div class="run"><span>AI Blueprint · Edition 2026–27</span><span>Chapter 01</span></div>
+  <div class="ptitle"><span class="badge">Prompt 07</span><h2>Develop a Space Programme with Area Schedule</h2></div>
+  <div class="meta">
+    <div><h4>Purpose</h4><p>To create a detailed space programme and area statement for a given project.</p></div>
+    <div><h4>Ideal point of use</h4><p>Concept design / pre-design stage.</p></div>
+    <div><h4>Inputs required</h4><ul><li>Project type and scale</li><li>Functional requirements</li><li>Target user group</li><li>Any specific constraints (e.g. Vastu, plot size)</li></ul></div>
+  </div>
+  <div class="label">Copy-ready prompt (for ChatGPT)</div>
+  <div class="prompt">Create a detailed space programme and area schedule for a G+2 premium residence on a 40 ft × 60 ft (2,400 sq. ft) plot for a family of 5. Include built-up area, room sizes, functional relationships, and a summary table with floor-wise areas. Suggest an efficient spatial layout and key design considerations for the local climate.</div>
+  <div class="label">Illustrative output (sample): space programme &amp; area statement</div>
+  <table>
+    <tr><th>Space</th><th class="r">Area (sq. ft)</th></tr>
+    <tr><td>Living &amp; Dining</td><td class="r">520</td></tr>
+    <tr><td>Kitchen + Store</td><td class="r">220</td></tr>
+    <tr><td>Guest Bedroom</td><td class="r">180</td></tr>
+    <tr><td>Master Bedroom</td><td class="r">280</td></tr>
+    <tr><td>Children's Bedroom (2)</td><td class="r">240</td></tr>
+    <tr><td>Family Lounge</td><td class="r">300</td></tr>
+    <tr><td>Study / Home Office</td><td class="r">140</td></tr>
+    <tr><td>Utility &amp; Services</td><td class="r">160</td></tr>
+    <tr><td>Circulation</td><td class="r">260</td></tr>
+    <tr class="total"><td>Total built-up area</td><td class="r">2,300</td></tr>
+    <tr class="total"><td>Plot area</td><td class="r">2,400</td></tr>
+  </table>
+  <ul class="tips">
+    <li>Add your local bye-law setbacks and FAR so the schedule stays within what you can build.</li>
+    <li>Follow up with: “Now split this floor-wise for G+2 and suggest adjacencies for each floor.”</li>
+  </ul>
+  <div class="foot"><span>knowledgebag.com</span><span>4</span></div>
+</section>
+
+<!-- 5. Inside the book -->
+<section class="page">
+  <div class="run"><span>AI Blueprint · Edition 2026–27</span><span>Inside the book</span></div>
+  <h2 style="font-size:28pt;margin-top:4mm">Inside the book</h2>
+  <img class="shot" src="../../src/assets/sample-spreads.jpg" alt="">
+  <div class="cap">Foreword and sample prompts: façade, interior concept and construction detail.</div>
+  <img class="shot" src="../../src/assets/book-overview.jpg" alt="">
+  <div class="cap">Chapter spreads and the professional outputs you can create.</div>
+  <div class="foot"><span>knowledgebag.com</span><span>5</span></div>
+</section>
+
+<!-- 6. Get the full book -->
+<section class="page back">
+  <div class="mono" style="color:#b8bcd2">The full book</div>
+  <h2>100 prompts.<br>10 chapters.<br>One complete AI workflow.</h2>
+  <p>Read AI Blueprint in your browser on phone, tablet or laptop. Instant access after payment.</p>
+  <div class="price">₹649 <s>₹899</s></div>
+  <p style="font-size:10pt">Inclusive of GST</p>
+  <a class="cta" href="https://www.knowledgebag.com">Buy at knowledgebag.com</a>
+  <div class="small">KnowledgeBag, a brand of Zotohin Private Limited<br>247, Anoop Nagar, Indore, Madhya Pradesh – 452018, India<br>+91 98272 36590<br>© KnowledgeBag. All rights reserved.</div>
+</section>
+
+</body>
+</html>

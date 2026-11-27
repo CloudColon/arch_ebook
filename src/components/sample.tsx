@@ -1,5 +1,6 @@
 import overview from "@/assets/book-overview.jpg";
 import spreads from "@/assets/sample-spreads.jpg";
+import Link from "next/link";
 import { book } from "@/content/book";
 import { BuyButton } from "./cart";
 import { SectionMark } from "./section-mark";
@@ -16,6 +17,9 @@ export function Sample() {
       <div className="mx-auto max-w-[1320px] px-4 py-20 md:px-8 md:py-28">
         <header className="md:ml-[8.333%]">
           <SectionMark n="II">Look inside the book</SectionMark>
+          <Link href="/ai-blueprint-sample.pdf" download prefetch={false} className="btn btn-line mt-6">
+            Download free sample (PDF)
+          </Link>
         </header>
 
         <div className="mt-12 grid gap-10 md:ml-[8.333%]">

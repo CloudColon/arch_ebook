@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { iciciProvider } from "@/server/payments/icici";
 import { settlePayment } from "@/server/payments/settle";
+import { siteOrigin } from "@/server/site";
 
 // Return URL to register with ICICI: https://knowledgebag.in/api/payment/icici/callback
 async function handle(req: Request) {
@@ -8,7 +9,7 @@ async function handle(req: Request) {
   const params = req.method === "POST" ? new URLSearchParams(await req.text()) : url.searchParams;
   try {
     const result = await iciciProvider.verifyCallback(params);
-    const order = await settlePayment(result);
+    const order = await settlePayment(result, siteOrigin(req));
     if (!order) return NextResponse.redirect(new URL("/cart?payment=unknown", req.url), 303);
     return NextResponse.redirect(new URL(`/order/${order.id}`, req.url), 303);
   } catch (e) {

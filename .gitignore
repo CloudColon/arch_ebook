@@ -49,3 +49,6 @@ next-env.d.ts
 
 # local data (orders)
 /data/
+
+# the paid book PDF, served only through /api/download
+/private/

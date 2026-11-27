@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LockSimple } from "@phosphor-icons/react";
 import { useCart } from "@/components/cart";
@@ -21,8 +21,29 @@ export function CheckoutForm() {
   const [gateway, setGateway] = useState<Extract<Start, { kind: "form" }> | null>(null);
   const gatewayForm = useRef<HTMLFormElement>(null);
   const router = useRouter();
+  useEffect(() => {
+    if (gateway) gatewayForm.current?.submit();
+  }, [gateway]);
 
   if (!ready) return <div className="mt-10 h-72 animate-pulse bg-cream" />;
+  // The cart is already cleared by now, so this must come before the empty-cart check or the form never renders.
+  if (gateway) {
+    return (
+      <div className="mt-10 border border-line bg-sheet px-6 py-16 text-center">
+        <p className="text-lg font-semibold">Taking you to ICICI Bank to pay</p>
+        <form ref={gatewayForm} action={gateway.action} method={gateway.method} className="mt-6">
+          {Object.entries(gateway.fields).map(([k, v]) => (
+            <input key={k} type="hidden" name={k} value={v} />
+          ))}
+          <noscript>
+            <button type="submit" className="btn btn-solid">
+              Continue to payment
+            </button>
+          </noscript>
+        </form>
+      </div>
+    );
+  }
   if (!items.includes(book.id)) {
     return (
       <div className="mt-10 border border-line bg-sheet px-6 py-16 text-center">
@@ -66,7 +87,6 @@ export function CheckoutForm() {
         window.location.assign(start.url);
       } else {
         setGateway(start);
-        requestAnimationFrame(() => gatewayForm.current?.submit());
       }
     } catch {
       setErrors({ form: "Could not reach the server. Check your connection and try again." });
@@ -108,13 +128,6 @@ export function CheckoutForm() {
         <p className="annot mt-1">Inclusive of GST. Instant access.</p>
       </aside>
 
-      {gateway && (
-        <form ref={gatewayForm} action={gateway.action} method={gateway.method} className="hidden">
-          {Object.entries(gateway.fields).map(([k, v]) => (
-            <input key={k} type="hidden" name={k} value={v} />
-          ))}
-        </form>
-      )}
     </div>
   );
 }

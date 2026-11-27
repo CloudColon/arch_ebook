@@ -5,7 +5,8 @@ import { book, business, formatINR } from "@/content/book";
 // Order outcome screen, shared by the real store (server order) and the static demo (browser order).
 export type OrderSummary = { id: string; name: string; email: string; amountPaise: number; status: "pending" | "paid" | "failed" };
 
-export function OrderView({ order }: { order: OrderSummary }) {
+// Only the real store passes a download (the static demo has no PDF to sell).
+export function OrderView({ order, download }: { order: OrderSummary; download?: { url: string; expires: string; emailed: boolean } }) {
   if (order.status === "paid") {
     return (
       <div>
@@ -26,9 +27,22 @@ export function OrderView({ order }: { order: OrderSummary }) {
           </Link>
           .
         </p>
-        <Link href="/read/1" className="btn btn-solid mt-10">
-          Start reading
-        </Link>
+        <div className="mt-10 flex flex-wrap gap-3">
+          <Link href="/read/1" className="btn btn-solid">
+            Start reading
+          </Link>
+          {download && (
+            <a href={download.url} className="btn btn-line">
+              Download PDF
+            </a>
+          )}
+        </div>
+        {download && (
+          <p className="mt-3 text-sm text-ink-2">
+            {download.emailed ? `The download link has also been sent to ${order.email}. ` : ""}It works until{" "}
+            {new Date(download.expires).toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" })} IST.
+          </p>
+        )}
       </div>
     );
   }
