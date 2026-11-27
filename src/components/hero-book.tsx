@@ -5,7 +5,6 @@ import { animate, motion, useMotionValue, useReducedMotion, useSpring, useTransf
 import { book } from "@/content/book";
 import { BookCover } from "./book-cover";
 import { BuyPage, ChapterOpener, LEAVES } from "./inside-pages";
-import { DrawLine } from "./motion";
 
 // The hero book. It tilts toward the pointer, and a click swings
 // the cover open on its spine to the Chapter 01 spread. From there the visitor turns pages like a real book: click the
@@ -72,7 +71,7 @@ export function HeroBook() {
         py.set(0);
       }}
     >
-      <div className="relative pb-14 pr-14">
+      <div className="relative pb-6 pr-14">
         <div style={{ perspective: 1600 }}>
           <motion.div
             className="pointer-events-none relative [transform-style:preserve-3d]"
@@ -172,14 +171,6 @@ export function HeroBook() {
           </motion.div>
         </div>
 
-        <div className={`absolute bottom-2 left-0 right-14 transition-opacity duration-500 ${open ? "opacity-0" : ""}`}>
-          <DrawLine axis="x" delay={0.6} />
-          <p className="annot mt-2 text-center">{book.chaptersCount} chapters</p>
-        </div>
-        <div className={`absolute bottom-14 right-8 top-0 flex items-center transition-opacity duration-500 ${open ? "opacity-0" : ""}`}>
-          <DrawLine axis="y" className="h-full" delay={0.75} />
-          <p className="annot absolute left-3 top-1/2 -translate-y-1/2 whitespace-nowrap [writing-mode:vertical-rl]">{book.pages} pages</p>
-        </div>
       </div>
 
       <div className="annot mt-1 flex flex-wrap items-center gap-x-4 gap-y-1 pr-14">
