@@ -1,7 +1,17 @@
 import { business } from "@/content/book";
 
 // Shared layout for policy pages: a sticky index on the left, numbered clauses on the right.
-export function LegalPage({ title, intro, sections }: { title: string; intro: string; sections: { h: string; body: React.ReactNode }[] }) {
+export function LegalPage({
+  title,
+  intro,
+  sections,
+  updated = business.policiesUpdated,
+}: {
+  title: string;
+  intro: string;
+  sections: { h: string; body: React.ReactNode }[];
+  updated?: string;
+}) {
   const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   return (
     <div className="mx-auto max-w-[1320px] px-4 py-16 md:px-8 md:py-24">
@@ -9,7 +19,7 @@ export function LegalPage({ title, intro, sections }: { title: string; intro: st
         <aside className="md:col-span-4 lg:col-span-3">
           <div className="md:sticky md:top-24">
             <h1 className="display text-5xl leading-[1.05]">{title}</h1>
-            <p className="annot mt-3">Last updated {business.policiesUpdated}</p>
+            <p className="annot mt-3">Last updated {updated}</p>
             <ol className="mt-8 hidden space-y-2 text-sm text-ink-2 md:block">
               {sections.map((s, i) => (
                 <li key={s.h}>

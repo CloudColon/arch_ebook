@@ -79,7 +79,7 @@ export function Footer() {
       </div>
       <div className="border-t border-line">
         <div className="mx-auto flex max-w-[1320px] flex-col gap-2 px-4 py-5 text-xs text-ink-3 md:flex-row md:justify-between md:px-8">
-          <p>© 2026 {business.legalName}. All rights reserved.</p>
+          <p>© 2026 {business.brand}. All rights reserved.</p>
           <p>Payments processed securely by ICICI Bank.</p>
         </div>
       </div>

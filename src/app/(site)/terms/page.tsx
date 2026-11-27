@@ -1,117 +1,214 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LegalPage, ContactLine } from "@/components/legal";
-import { book, business, formatINR } from "@/content/book";
+import { LegalPage } from "@/components/legal";
+import { business } from "@/content/book";
 
 export const metadata: Metadata = { title: "Terms and conditions" };
 
-// PLACEHOLDER: have a lawyer review before launch.
+const link = "text-ink underline underline-offset-4";
+const brand = business.brand;
+
 export default function TermsPage() {
   return (
     <LegalPage
-      title="Terms and conditions"
-      intro={`These terms apply when you browse ${business.domain} or buy and read ${book.title} from ${business.legalName} ("we", "us"). By placing an order you agree to them.`}
+      title="Terms & Conditions"
+      updated={business.termsUpdated}
+      intro={`Welcome to ${brand}. By accessing our website or purchasing our digital products, you agree to the following Terms & Conditions.`}
       sections={[
         {
-          h: "Who we are",
-          body: (
-            <p>
-              {business.domain} is operated by <ContactLine />
-            </p>
-          ),
-        },
-        {
-          h: "What you are buying",
+          h: `About ${brand}`,
           body: (
             <>
-              <p>
-                You are buying a personal, non-transferable licence to read the digital edition of {book.title} by {book.authorTitle} on{" "}
-                {business.domain}. The book is read online in your browser. No physical copy is shipped and no file is downloaded.
-              </p>
-              <p>The licence is for your own, non-commercial reading. It does not transfer ownership of the text, images or design.</p>
+              <p>{brand} is a digital publishing platform offering e-books, prompt guides and educational resources.</p>
+              <dl className="grid gap-1">
+                <div>
+                  <dt className="inline font-semibold text-ink">Legal Operator: </dt>
+                  <dd className="inline">
+                    {brand}, a brand operated by {business.legalName}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="inline font-semibold text-ink">Address: </dt>
+                  <dd className="inline">{business.addressLines.join(", ")}</dd>
+                </div>
+                <div>
+                  <dt className="inline font-semibold text-ink">Email: </dt>
+                  <dd className="inline">
+                    <a href={`mailto:${business.email}`} className={link}>
+                      {business.email}
+                    </a>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="inline font-semibold text-ink">Website: </dt>
+                  <dd className="inline">
+                    <a href={business.url} className={link}>
+                      www.{business.domain}
+                    </a>
+                  </dd>
+                </div>
+              </dl>
             </>
           ),
         },
         {
-          h: "Price and payment",
+          h: "Privacy & Data Security",
           body: (
             <>
               <p>
-                The price is {formatINR(book.pricePaise)}, shown in Indian Rupees and inclusive of applicable GST. The price at the time you place
-                the order is the price you pay.
+                {brand} respects your privacy. Personal information submitted through our website will be kept confidential and protected
+                through reasonable security measures. It will be used for order processing, digital delivery, customer support and legal
+                compliance. We do not sell personal data. Information may be shared with trusted service providers when necessary to provide our
+                services or comply with law.
               </p>
               <p>
-                Payments are processed by ICICI Bank through its payment gateway. We do not see or store your card, UPI or net banking details.
-                An order is confirmed only when the bank confirms the payment.
+                For further details, please refer to our{" "}
+                <Link href="/privacy" className={link}>
+                  Privacy Policy
+                </Link>
+                .
               </p>
             </>
           ),
         },
         {
-          h: "Access and delivery",
+          h: "Digital Products & Delivery",
           body: (
             <p>
-              Access is given immediately after a successful payment, in the browser you paid from. You can unlock other devices using your order
-              ID and email on the{" "}
-              <Link href="/restore" className="text-ink underline underline-offset-4">
-                restore access
-              </Link>{" "}
-              page. Details are in our{" "}
-              <Link href="/refunds" className="text-ink underline underline-offset-4">
-                refunds and delivery policy
-              </Link>
-              .
+              All products are digital unless otherwise specified. Products are delivered through a download link, email or customer account
+              after successful payment. No physical shipping is involved. Customers are responsible for providing a valid email address and
+              ensuring file compatibility.
             </p>
           ),
         },
         {
-          h: "Acceptable use",
+          h: "Pricing & Payments",
           body: (
             <p>
-              You agree not to copy, reproduce, record, scrape, share your access with others, resell, or publish any part of the book except
-              short quotations with credit, as permitted by the Copyright Act, 1957. We may suspend access that is shared or misused.
+              Prices are displayed at the time of purchase. Orders are confirmed after successful payment. Payment processing is subject to the
+              terms of the relevant payment provider.
             </p>
           ),
         },
         {
-          h: "Intellectual property",
+          h: "Refund & Cancellation",
+          body: (
+            <>
+              <p>
+                Purchases of downloadable digital products are generally final and non-refundable once delivered or made available for download.
+              </p>
+              <p>
+                Exceptions may apply in cases of duplicate payment, failed delivery, defective or inaccessible files, incorrect product delivery or
+                where required by applicable law. Please refer to our{" "}
+                <Link href="/refunds" className={link}>
+                  Refund & Cancellation Policy
+                </Link>
+                .
+              </p>
+            </>
+          ),
+        },
+        {
+          h: "Copyright & Intellectual Property",
+          body: (
+            <>
+              <p>
+                All original content, e-books, prompts, graphics, layouts and branding published by {brand} are owned by or used under licence by
+                the relevant rights holder.
+              </p>
+              <p>
+                Purchasers receive a limited, non-exclusive, non-transferable licence for personal and professional reference. Reselling,
+                reproducing, redistributing, publicly sharing or claiming the content as one&apos;s own is prohibited without written permission.
+              </p>
+            </>
+          ),
+        },
+        {
+          h: "AI-Generated Content & Copyright Disclaimer",
+          body: (
+            <>
+              <p>Certain content in {brand} publications has been developed with the assistance of AI tools, including OpenAI&apos;s ChatGPT.</p>
+              <p>
+                {brand} does not guarantee that all AI-generated content independently qualifies for copyright protection, exclusive ownership or
+                freedom from third-party intellectual property claims.
+              </p>
+              <p>
+                All content remains subject to applicable laws and third-party rights. Users should verify AI-generated outputs before using or
+                commercially exploiting them.
+              </p>
+              <p>
+                {brand} may review, modify or remove material in response to legitimate intellectual property complaints, in accordance with
+                applicable law. Nothing in this disclaimer excludes liability that cannot legally be excluded.
+              </p>
+            </>
+          ),
+        },
+        {
+          h: "Third-Party Tools & Platforms",
           body: (
             <p>
-              The text, drawings, photographs and design of the book and this website belong to {book.authorTitle} and {business.legalName} or
-              their licensors, and are protected by copyright.
+              References to third-party software, AI tools or brands are for informational purposes only. {brand} is not affiliated with or
+              endorsed by such third parties unless expressly stated. Their respective terms and policies apply.
             </p>
           ),
         },
         {
-          h: "Availability",
+          h: "Accuracy & Limitation of Liability",
+          body: (
+            <>
+              <p>
+                Our products are intended for educational and informational purposes. While reasonable efforts are made to ensure accuracy, users
+                must independently verify technical, architectural, regulatory and other project-specific information before relying on it.
+              </p>
+              <p>
+                To the extent permitted by law, {brand} shall not be liable for indirect or consequential losses arising from the use of its
+                website or products.
+              </p>
+            </>
+          ),
+        },
+        {
+          h: "Changes to Terms",
           body: (
             <p>
-              We work to keep the reader available at all times but cannot promise uninterrupted access. Planned maintenance will be short. If the
-              service is ever discontinued, we will give paying readers reasonable notice and an alternative way to read the book.
+              {brand} may update these Terms & Conditions from time to time. Updated terms will be published on this page with the revised date.
             </p>
           ),
         },
         {
-          h: "Liability",
+          h: "Governing Law",
           body: (
             <p>
-              The book shares the author&apos;s professional experience for general education. It is not a substitute for advice from a licensed
-              architect or engineer on your specific project. To the extent allowed by law, our total liability for any claim is limited to the
-              amount you paid for the book.
+              These Terms & Conditions are governed by the laws of India. Subject to applicable law, disputes shall fall under the jurisdiction of
+              competent courts in {business.jurisdiction}.
             </p>
           ),
         },
         {
-          h: "Changes to these terms",
-          body: <p>We may update these terms. The version in force when you placed your order applies to that order.</p>,
-        },
-        {
-          h: "Governing law",
+          h: "Contact & Grievance Support",
           body: (
-            <p>
-              These terms are governed by the laws of India. Courts in {business.jurisdiction} have exclusive jurisdiction. For any complaint,
-              write to us first and we will respond within 7 working days.
-            </p>
+            <>
+              <p>For queries, complaints or intellectual property concerns, contact:</p>
+              <div className="grid gap-1">
+                <p className="font-semibold text-ink">{brand}</p>
+                <p>
+                  Email:{" "}
+                  <a href={`mailto:${business.email}`} className={link}>
+                    {business.email}
+                  </a>
+                </p>
+                <p>Address: {business.addressLines.join(", ")}</p>
+                {business.grievanceOfficer && <p>Grievance Officer: {business.grievanceOfficer}</p>}
+                {business.grievancePhone && (
+                  <p>
+                    Contact:{" "}
+                    <a href={`tel:${business.grievancePhone.replace(/\s/g, "")}`} className={link}>
+                      {business.grievancePhone}
+                    </a>
+                  </p>
+                )}
+              </div>
+            </>
           ),
         },
       ]}

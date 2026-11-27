@@ -111,18 +111,21 @@ export const authorBio = {
 
 // Business and legal details shown in the footer, contact page and policies.
 export const business = {
-  legalName: "KnowledgeBag", // PLACEHOLDER: registered business name as on GST / bank account
+  legalName: "Zotohin Private Limited", // the company that operates the KnowledgeBag brand
   brand: "KnowledgeBag",
-  domain: "knowledgebag.in",
-  url: "https://knowledgebag.in",
-  addressLines: ["Office 4, Second Floor, Prabhat Road", "Erandwane, Pune 411004", "Maharashtra, India"], // PLACEHOLDER
+  domain: "knowledgebag.com",
+  url: "https://www.knowledgebag.com",
+  addressLines: ["247, Anoop Nagar", "Indore, Madhya Pradesh – 452018", "India"],
   email: "hello@knowledgebag.in", // PLACEHOLDER: confirm mailbox exists
   phone: "+91 00000 00000", // PLACEHOLDER
   phoneHref: "+910000000000", // PLACEHOLDER
   hours: "Monday to Saturday, 10 am to 6 pm IST",
   gstin: "", // PLACEHOLDER: add GSTIN if registered, leave empty to hide
-  jurisdiction: "Pune, Maharashtra",
+  jurisdiction: "Indore, Madhya Pradesh",
+  grievanceOfficer: "" as string, // PLACEHOLDER: name and designation, shown in the terms when set
+  grievancePhone: "" as string, // PLACEHOLDER: shown in the terms when set
   policiesUpdated: "24 November 2026",
+  termsUpdated: "27 November 2026",
 } as const;
 
 export function formatINR(paise: number) {
