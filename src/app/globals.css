@@ -186,8 +186,7 @@ body {
   transform-origin: left center;
   transform: rotateY(90deg) translateX(-34px);
   background:
-    linear-gradient(180deg, transparent 7%, #b39552 7%, #b39552 7.4%, transparent 7.4%, transparent 92.6%, #b39552 92.6%, #b39552 93%, transparent 93%),
-    linear-gradient(90deg, #121a3d, #26326b 40%, #18214d);
+    linear-gradient(90deg, #2a1c16, #4a3328 40%, #33231b);
 }
 .book-pages {
   position: absolute;

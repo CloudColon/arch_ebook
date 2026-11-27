@@ -12,7 +12,7 @@ export type Chapter = { n: number; title: string; blocks: Block[] };
 // PLACEHOLDER: replace with the author's manuscript.
 export const chapterOne: Chapter = {
   n: 1,
-  title: "The Room Before the Room",
+  title: "Project Brief & Architectural Planning",
   blocks: [
     {
       type: "p",
