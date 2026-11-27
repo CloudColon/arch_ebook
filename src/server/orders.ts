@@ -20,6 +20,8 @@ export type Order = {
   providerRef?: string;
   createdAt: string;
   paidAt?: string;
+  termsAcceptedAt?: string; // when the buyer ticked the checkout checkbox
+  termsVersion?: string; // the terms' "last updated" date they agreed to
 };
 
 const FILE = path.join(process.cwd(), "data", "orders.json");

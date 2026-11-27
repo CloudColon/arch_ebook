@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { book } from "@/content/book";
+import { book, business } from "@/content/book";
 import { createOrder } from "@/server/orders";
 import { paymentProvider } from "@/server/payments";
 import { siteOrigin } from "@/server/site";
@@ -12,7 +12,16 @@ export async function POST(req: Request) {
 
   const provider = paymentProvider();
   // Price always comes from the server, never from the cart in the browser.
-  const order = await createOrder({ bookId: book.id, amountPaise: book.pricePaise, name, email, phone, provider: provider.name });
+  const order = await createOrder({
+    bookId: book.id,
+    amountPaise: book.pricePaise,
+    name,
+    email,
+    phone,
+    provider: provider.name,
+    termsAcceptedAt: new Date().toISOString(),
+    termsVersion: business.termsUpdated,
+  });
 
   try {
     const start = await provider.createPayment(order, siteOrigin(req));

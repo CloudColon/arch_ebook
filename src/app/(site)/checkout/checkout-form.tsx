@@ -81,6 +81,7 @@ export function CheckoutForm() {
         <Field name="name" label="Full name" autoComplete="name" error={errors.name} />
         <Field name="email" label="Email" type="email" autoComplete="email" error={errors.email} />
         <Field name="phone" label="Mobile number" type="tel" autoComplete="tel" inputMode="tel" helper="Required by the bank for payment." error={errors.phone} />
+        <Consent error={errors.agree} />
         {errors.form && (
           <p role="alert" className="field-error">
             {errors.form}
@@ -90,17 +91,6 @@ export function CheckoutForm() {
           <LockSimple size={18} />
           {busy ? "Connecting to the bank" : `Pay ${formatINR(book.pricePaise)}`}
         </button>
-        <p className="text-sm text-ink-2">
-          By paying you agree to our{" "}
-          <Link href="/terms" className="underline underline-offset-4">
-            terms
-          </Link>{" "}
-          and{" "}
-          <Link href="/refunds" className="underline underline-offset-4">
-            refund policy
-          </Link>
-          .
-        </p>
       </form>
 
       <aside className="h-fit border border-ink bg-sheet p-6">
@@ -124,6 +114,39 @@ export function CheckoutForm() {
             <input key={k} type="hidden" name={k} value={v} />
           ))}
         </form>
+      )}
+    </div>
+  );
+}
+
+// Required before paying. The links open in a new tab so the filled-in form is not lost.
+function Consent({ error }: { error?: string }) {
+  const policy = (href: string, label: string) => (
+    <Link href={href} target="_blank" rel="noopener noreferrer" className="text-ink underline underline-offset-4">
+      {label}
+    </Link>
+  );
+  return (
+    <div>
+      <label htmlFor="agree" className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-ink-2">
+        <input
+          id="agree"
+          name="agree"
+          type="checkbox"
+          required
+          aria-invalid={!!error}
+          aria-describedby={error ? "agree-error" : undefined}
+          className="mt-0.5 size-[18px] shrink-0 cursor-pointer accent-accent"
+        />
+        <span>
+          I have read and agree to the {policy("/terms", "Terms & Conditions")}, {policy("/payment-policy", "Payment Policy")} and{" "}
+          {policy("/refunds", "Refund & Cancellation Policy")}.
+        </span>
+      </label>
+      {error && (
+        <p id="agree-error" className="field-error">
+          {error}
+        </p>
       )}
     </div>
   );

@@ -8,7 +8,7 @@ export const book = {
   author: "Snehal Sontakke",
   authorTitle: "Ar. Snehal Sontakke",
   pitch:
-    "Nine essays on how Indian homes hold light, air and family life, written from twenty years of building them.", // PLACEHOLDER
+    "100 ready-to-use ChatGPT prompts that help architects, interior designers, civil engineers, 3D visualisers and students plan, design, document and deliver projects faster.",
   pricePaise: 64900, // PLACEHOLDER (₹649, inclusive of GST)
   mrpPaise: 89900, // PLACEHOLDER (struck-through launch price, set to null to hide)
   pages: 212, // PLACEHOLDER
@@ -99,8 +99,16 @@ export const authorBio = {
   short:
     "Snehal Sontakke is an architect designing homes, schools and small public buildings across western India.",
   long: [
-    "She trained in Ahmedabad and spent her first years on site, learning from masons and carpenters before she learnt from drawings. Her studio is known for houses that stay cool without machines and age without apology.",
-    "Thresholds is her first book. It gathers the questions clients ask her most, and the answers buildings gave her over two decades.",
+    "AI Blueprint is her handbook for using ChatGPT as a working partner on real projects. The 100 prompts follow a project from briefing and site analysis through design development, interiors, documentation, visualisation, costing, approvals and delivery. Each one gives you the purpose, the inputs to prepare, a copy-ready prompt, a sample output and tips to refine it.",
+  ],
+  // Who the book helps, and how. Shown under the author's bio.
+  helps: [
+    { who: "Students", how: "Turn a studio brief into a clear programme, area schedule and concept, and learn how professionals structure each stage of a project." },
+    { who: "Architects", how: "Draft briefs, site analyses, façade options, specifications and client presentations in minutes, and spend the saved hours on design." },
+    { who: "Interior designers", how: "Build concepts, moodboards, material palettes and room-wise layouts from a client's needs, style and budget." },
+    { who: "Civil engineers", how: "Prepare construction details, specifications, schedules and approval checklists faster, with prompts written for site realities." },
+    { who: "3D visualisers", how: "Write render prompts for exteriors and interiors with the right lighting, mood, materials and seasons, and improve images for clients." },
+    { who: "Consultants, firms and freelancers", how: "Standardise how your team briefs, documents and communicates, so every project starts from a proven workflow." },
   ],
   facts: [
     { label: "In practice since", value: "2004" }, // PLACEHOLDER
@@ -117,13 +125,13 @@ export const business = {
   url: "https://www.knowledgebag.com",
   addressLines: ["247, Anoop Nagar", "Indore, Madhya Pradesh – 452018", "India"],
   email: "hello@knowledgebag.in", // PLACEHOLDER: confirm mailbox exists
-  phone: "+91 00000 00000", // PLACEHOLDER
-  phoneHref: "+910000000000", // PLACEHOLDER
+  phone: "+91 98272 36590",
+  phoneHref: "+919827236590",
   hours: "Monday to Saturday, 10 am to 6 pm IST",
   gstin: "", // PLACEHOLDER: add GSTIN if registered, leave empty to hide
   jurisdiction: "Indore, Madhya Pradesh",
   grievanceOfficer: "" as string, // PLACEHOLDER: name and designation, shown in the terms when set
-  grievancePhone: "" as string, // PLACEHOLDER: shown in the terms when set
+  grievancePhone: "+91 98272 36590" as string, // shown in the terms when set
   policiesUpdated: "24 November 2026",
   termsUpdated: "27 November 2026",
 } as const;

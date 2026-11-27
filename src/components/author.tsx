@@ -27,6 +27,13 @@ export function Author() {
               {p}
             </p>
           ))}
+          <ul className="mt-8 max-w-[60ch] divide-y divide-line border-y border-line">
+            {authorBio.helps.map((h) => (
+              <li key={h.who} className="py-3 leading-relaxed text-ink-2">
+                <span className="font-semibold text-ink">{h.who}.</span> {h.how}
+              </li>
+            ))}
+          </ul>
           <dl className="mt-10 grid grid-cols-1 gap-6 border-t border-gold pt-6 sm:grid-cols-3">
             {authorBio.facts.map((f) => (
               <div key={f.label}>

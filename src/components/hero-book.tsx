@@ -7,32 +7,12 @@ import { BookCover } from "./book-cover";
 import { BuyPage, ChapterOpener, LEAVES } from "./inside-pages";
 import { DrawLine } from "./motion";
 
-// The hero book, standing in a palace arch drawn in gold. It tilts toward the pointer, and a click swings
+// The hero book. It tilts toward the pointer, and a click swings
 // the cover open on its spine to the Chapter 01 spread. From there the visitor turns pages like a real book: click the
 // right-hand page to turn it over, the left-hand page to turn it back.
 
 // A turned leaf lies just inside the open cover; each later one sits slightly on top of the one before.
 const turnedAngle = (k: number) => -136 + k * 1.2;
-
-// A pointed palace arch in gold hairline, with an inner line, springing ticks, a finial and a plinth.
-function Arch() {
-  const line = { fill: "none", stroke: "var(--gold)", strokeWidth: 1, vectorEffect: "non-scaling-stroke" as const };
-  return (
-    <svg
-      viewBox="0 0 200 293"
-      preserveAspectRatio="none"
-      className="pointer-events-none absolute -left-12 -top-[4.5rem] h-[calc(100%+2.5rem)] w-[calc(100%+4rem)] overflow-visible"
-      aria-hidden
-    >
-      <path d="M10 293 V120 A109 109 0 0 1 100 12.7 A109 109 0 0 1 190 120 V293 Z" fill="var(--cream)" fillOpacity="0.7" />
-      <path d="M4 293 V120 A115 115 0 0 1 100 6.6 A115 115 0 0 1 196 120 V293" {...line} />
-      <path d="M10 293 V120 A109 109 0 0 1 100 12.7 A109 109 0 0 1 190 120 V293" {...line} strokeOpacity="0.55" />
-      <path d="M-4 120 H14 M186 120 H204" {...line} />
-      <path d="M100 -6 L103.5 0 L100 6 L96.5 0 Z" fill="var(--gold)" />
-      <path d="M-14 293 H214 M-8 288 H208" {...line} />
-    </svg>
-  );
-}
 
 export function HeroBook() {
   const reduce = useReducedMotion();
@@ -93,7 +73,6 @@ export function HeroBook() {
       }}
     >
       <div className="relative pb-14 pr-14">
-        <Arch />
         <div style={{ perspective: 1600 }}>
           <motion.div
             className="pointer-events-none relative [transform-style:preserve-3d]"

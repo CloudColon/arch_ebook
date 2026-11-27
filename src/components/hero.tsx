@@ -34,7 +34,7 @@ export function Hero() {
             <div className="mt-9 flex flex-wrap gap-3">
               <BuyButton />
               <a href="#sample" className="btn btn-line bg-paper/70">
-                Read chapter one
+                Look inside
               </a>
             </div>
           </Reveal>

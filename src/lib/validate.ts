@@ -10,5 +10,7 @@ export function cleanBuyer(body: Record<string, unknown>) {
   if (name.length < 2) errors.name = "Enter your full name.";
   if (!EMAIL.test(email)) errors.email = "Enter a valid email address.";
   if (phone.replace(/\D/g, "").length < 10) errors.phone = "Enter a 10 digit mobile number.";
+  // The checkout checkbox; no order is created without it.
+  if (body.agree !== "on") errors.agree = "Please accept the terms, payment policy and refund policy to continue.";
   return { name, email, phone, errors };
 }

@@ -4,8 +4,9 @@ import { Wordmark } from "./nav";
 
 const legal = [
   { href: "/terms", label: "Terms and conditions" },
+  { href: "/payment-policy", label: "Payment policy" },
+  { href: "/refunds", label: "Refund and cancellation policy" },
   { href: "/privacy", label: "Privacy policy" },
-  { href: "/refunds", label: "Refunds and delivery" },
   { href: "/contact", label: "Contact" },
   { href: "/restore", label: "Restore reading access" },
 ];

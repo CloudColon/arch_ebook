@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import { LegalPage, ContactLine } from "@/components/legal";
 import { book, business } from "@/content/book";
 
-export const metadata: Metadata = { title: "Refunds and delivery" };
+export const metadata: Metadata = { title: "Refund and cancellation policy" };
 
 // PLACEHOLDER: confirm the refund window with the owner.
 export default function RefundsPage() {
   return (
     <LegalPage
-      title="Refunds and delivery"
+      title="Refund & Cancellation Policy"
       intro={`${book.title} is a digital book read online. This page explains how it is delivered and when you can get your money back.`}
       sections={[
         {
